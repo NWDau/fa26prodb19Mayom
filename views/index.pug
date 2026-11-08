@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p  #{title}
+  
+  button(type="button", class="btn btn-secondary", onclick="reduce()") Press me
+
+  div(id="use") take some away
+
+  script. 
+    let current = 11;
+    let quantity = 2;
+
+    function reduce() {
+      current -= quantity;
+
+      if (current < 0){
+        current = 0;
+      }
+      document.getElementById("use").textContent = `reduced by ${quantity} to ${current}`;
+    }
+
+
+    

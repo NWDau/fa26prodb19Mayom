@@ -1,0 +1,22 @@
+extends layout 
+
+block content 
+  h1= title
+
+
+  -
+    let image_names = [
+      "Apple juice.jpg",
+      "cranberry juice.jpg",
+      "grape juice.jpg",
+      "Orange juice.jpg",
+      "pineapple juice.jpg"
+    ]
+
+  each item in [1, 2, 3]
+    -
+      let randomIndex = Math.floor(Math.random() * 5);
+      let imageName = image_names[randomIndex];
+
+    img(src=`/images/${imageName}`, alt=`Juice: ${imageName}`, height="300", width="300")
+    
