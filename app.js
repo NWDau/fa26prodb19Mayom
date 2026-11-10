@@ -1,7 +1,10 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
+console.log("MONGO_CON loaded: ", Boolean(process.env.MONGO_CON));
+
 mongoose.connect(process.env.MONGO_CON);
+
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'Connection error:'));
@@ -67,6 +70,8 @@ var usersRouter = require('./routes/users');
 var juiceRouter = require('./routes/juice');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
+var resourceRouter = require('./routes/resource');
+
 
 var app = express();
 
@@ -85,6 +90,7 @@ app.use('/users', usersRouter);
 app.use('/juice', juiceRouter);
 app.use('/grid', gridRouter);
 app.use('/pick', pickRouter);
+app.use('/resource', resourceRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
