@@ -1,4 +1,5 @@
-const mongoos = require('mongoose');
+
+const mongoose = require("mongoose");
 
 var juiceSchema = new mongoose.Schema({
     flavor: String,
