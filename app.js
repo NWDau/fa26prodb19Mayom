@@ -1,8 +1,66 @@
+require('dotenv').config();
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_CON);
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'Connection error:'));
+
+db.once('open', async function () {
+  console.log('Connected to MongoDB Atlas!');
+
+  let reseed = true;
+
+  if(reseed){
+    await recreateDB();
+  }
+
+});
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var Juice = require("./models/juice")
+
+async function recreateDB(){
+
+  await Juice.deleteMany();
+
+  let instance1 = new Juice({
+    flavor: "Orange",
+    volume: 500,
+    sugarContent: 22,
+    brand: "Tropicana"
+  });
+
+  let instance2 = new Juice({
+    flavor: "Apple",
+    volume: 350,
+    sugarContent: 18,
+    brand: "Mott's"
+  });
+
+  let instance3 = new Juice({
+    flavor: "Grape",
+    volume: 1000,
+    sugarContent: 36,
+    brand: "Welch's"
+  });
+
+  await instance1.save();
+  console.log("First object saved");
+
+  await instance2.save();
+  console.log("Second object saved");
+
+  await instance3.save();
+  console.log("Third object saved");
+}
+
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

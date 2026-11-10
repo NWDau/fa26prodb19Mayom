@@ -5,6 +5,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+.env
+
 # Runtime data
 pids
 *.pid
@@ -56,6 +58,8 @@ typings/
 
 # dotenv environment variables file
 .env
+
+MONGO CON='mongodb+srv://s573919_db_user:YBcURk3haRUMjgbl@learnmongo.nekzffg.mongodb.net/'
 
 # next.js build output
 .next
