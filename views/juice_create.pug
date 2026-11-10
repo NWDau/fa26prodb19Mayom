@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 Add New Juice
+
+  div(class="container")
+    form(action="/resource/juices", method="POST")
+      div(class="form-group mb-3")
+        label(for="flavor") Flavor
+        input(type="text", class="form-control", name="flavor", required)
+
+      div(class="form-group mb-3")
+        label(for="volume") Volume
+        input(type="number", class="form-control", name="volume", required)
+
+      div(class="form-group mb-3")
+        label(for="sugarContent") Sugar Content
+        input(type="number", class="form-control", name="sugarContent", required)
+
+      div(class="form-group mb-3")
+        label(for="brand") Brand
+        input(type="text", class="form-control", name="brand", required)
+
+      button(type="submit", class="btn btn-success") Save Juice
+      a(class="btn btn-secondary ms-2", href="/juices") Cancel

@@ -28,4 +28,8 @@ router.get('/juices/:id', juice_controller.juice_detail);
 // GET request for list of all Juice items.
 router.get('/juices', juice_controller.juice_list);
 
+router.post('/juices/:id', juice_controller.juice_update_put);
+
+router.post('/juices/:id/delete', juice_controller.juice_delete);
+
 module.exports = router;

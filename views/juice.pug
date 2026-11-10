@@ -2,25 +2,18 @@ extends layout
 
 block content
   h1= title
-  
-
-  -
-    let results = [
-      { flavor: "Orange", volume: 500, sugarContent: 22, brand: "Tropicana" },
-      { flavor: "Apple", volume: 350, sugarContent: 18, brand: "Mott's" },
-      { flavor: "Grape", volume: 1000, sugarContent: 36, brand: "Welch's" }
-    ]
 
   div(class="container-fluid")
+    a(class="btn btn-success mb-3", href="/juices/create") Add New Juice
+
     div(class="row")
       each item, index in results
-        div(class="col-sm-2", onclick=`buy(${index})`)
-          p Flavor: #{item.flavor}
-          p Volume: #{item.volume}
-          p Sugar Content: #{item.sugarContent} 
-          p Brand: #{item.brand}
+        div(class="col-sm-3")
+          div(class="card p-3 m-2")
+            h3= item.flavor
+            p Brand: #{item.brand}
 
-  script. 
-    function buy(index){
-      alert("You purchased item " + index);
-    }
+            div(class="d-flex gap-2")
+              a(class="btn btn-info btn-sm", href=`/juices/${item._id}`) Inspect
+              a(class="btn btn-warning btn-sm", href=`/juices/${item._id}/update`) Update
+              a(class="btn btn-danger btn-sm", href=`/juices/${item._id}/delete`) Delete

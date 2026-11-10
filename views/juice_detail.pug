@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+
+  div(class="container")
+    h2= details.flavor
+    p Volume: #{details.volume}
+    p Sugar Content: #{details.sugarContent}
+    p Brand: #{details.brand}
+
+    a(class="btn btn-secondary", href="/juices") Back to Juice Collection

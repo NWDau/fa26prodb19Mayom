@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1 Delete Juice?
+
+  div(class="container")
+    h3= details.flavor
+    p Brand: #{details.brand}
+    p Volume: #{details.volume}
+    p Sugar Content: #{details.sugarContent}
+
+    p Are you sure you want to delete this juice?
+
+    form(action=`/resource/juices/${details._id}/delete`, method="POST")
+      button(type="submit", class="btn btn-danger") Yes, Delete
+      a(class="btn btn-secondary ms-2", href="/juices") Cancel

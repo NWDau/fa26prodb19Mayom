@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 Update Juice
+
+  div(class="container")
+    form(action=`/resource/juices/${details._id}`, method="POST")
+      div(class="form-group mb-3")
+        label(for="flavor") Flavor
+        input(type="text", class="form-control", name="flavor", value=details.flavor, required)
+
+      div(class="form-group mb-3")
+        label(for="volume") Volume
+        input(type="number", class="form-control", name="volume", value=details.volume, required)
+
+      div(class="form-group mb-3")
+        label(for="sugarContent") Sugar Content
+        input(type="number", class="form-control", name="sugarContent", value=details.sugarContent, required)
+
+      div(class="form-group mb-3")
+        label(for="brand") Brand
+        input(type="text", class="form-control", name="brand", value=details.brand, required)
+
+      button(type="submit", class="btn btn-warning") Save Changes
+      a(class="btn btn-secondary ms-2", href="/juices") Cancel

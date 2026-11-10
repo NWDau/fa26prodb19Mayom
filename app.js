@@ -87,7 +87,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/juice', juiceRouter);
+app.use('/juices', juiceRouter);
 app.use('/grid', gridRouter);
 app.use('/pick', pickRouter);
 app.use('/resource', resourceRouter);
