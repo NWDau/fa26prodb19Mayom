@@ -128,20 +128,42 @@ exports.juice_delete = async function(req, res) {
     }
 };
 
-// Handle Juice update
+// Handle Juice update on PUT
 exports.juice_update_put = async function(req, res) {
-    try {
-        await Juice.findByIdAndUpdate(req.params.id, {
-            flavor: req.body.flavor,
-            volume: req.body.volume,
-            sugarContent: req.body.sugarContent,
-            brand: req.body.brand
-        });
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`);
 
-        res.redirect('/juices');
+    try {
+        let toUpdate = await Juice.findById(req.params.id);
+
+        // Check whether the Juice exists
+        if (!toUpdate) {
+            return res.status(404).send({
+                error: `Juice with id ${req.params.id} not found`
+            });
+        }
+
+        // Update the properties if they were provided
+        if (req.body.flavor !== undefined)
+            toUpdate.flavor = req.body.flavor;
+
+        if (req.body.volume !== undefined)
+            toUpdate.volume = req.body.volume;
+
+        if (req.body.sugarContent !== undefined)
+            toUpdate.sugarContent = req.body.sugarContent;
+
+        if (req.body.brand !== undefined)
+            toUpdate.brand = req.body.brand;
+
+        // Save the updated document
+        let result = await toUpdate.save();
+
+        console.log("Success " + result);
+        res.send(result);
     }
-    catch(err) {
-        res.status(500);
-        res.send(`{"error": ${err}}`);
+    catch (err) {
+        res.status(500).send({
+            error: `Update for id ${req.params.id} failed: ${err.message}`
+        });
     }
 };
