@@ -45,19 +45,17 @@ exports.juice_detail_Page = async function(req, res) {
     }
 };
 
-// Handle GET request for one Juice
+// For a specific Juice
 exports.juice_detail = async function(req, res) {
+    console.log("detail " + req.params.id);
+
     try {
-        const theJuice = await Juice.findById(req.params.id);
-
-        if (theJuice == null) {
-            return res.status(404).send('Juice not found');
-        }
-
-        res.send(theJuice);
+        const result = await Juice.findById(req.params.id);
+        res.send(result);
     }
-    catch(err) {
-        res.status(500).send({ error: err.message });
+    catch (error) {
+        res.status(500);
+        res.send(`{"error": "Document for id ${req.params.id} not found"}`);
     }
 };
 
