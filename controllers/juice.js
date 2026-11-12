@@ -45,19 +45,19 @@ exports.juice_detail_Page = async function(req, res) {
     }
 };
 
-// For a specific Juice
+// Handle GET request for one Juice
 exports.juice_detail = async function(req, res) {
     try {
         const theJuice = await Juice.findById(req.params.id);
 
-        res.render('juice_detail', {
-            title: 'Juice Details',
-            details: theJuice
-        });
+        if (theJuice == null) {
+            return res.status(404).send('Juice not found');
+        }
+
+        res.send(theJuice);
     }
     catch(err) {
-        res.status(500);
-        res.send(`{"error": ${err}}`);
+        res.status(500).send({ error: err.message });
     }
 };
 
