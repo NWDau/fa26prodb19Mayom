@@ -1,25 +1,43 @@
+
 extends layout
 
 block content
-  h1 Add New Juice
+  h1= title
 
-  div(class="container")
-    form(action="/resource/juices", method="POST")
-      div(class="form-group mb-3")
-        label(for="flavor") Flavor
-        input(type="text", class="form-control", name="flavor", required)
+  form(id='JuiceForm', action="/resource/juices", method="POST")
+    div.form-group
+      label.juiceAttr(for='flavor') Juice Flavor
+      input#flavor(type='text', name='flavor', required=true)
 
-      div(class="form-group mb-3")
-        label(for="volume") Volume
-        input(type="number", class="form-control", name="volume", required)
+    div.form-group
+      label.juiceAttr(for='volume') Juice Volume
+      input#volume(type='number', name='volume', required=true)
 
-      div(class="form-group mb-3")
-        label(for="sugarContent") Sugar Content
-        input(type="number", class="form-control", name="sugarContent", required)
+    div.form-group
+      label.juiceAttr(for='sugarContent') Sugar Content
+      input#sugarContent(type='number', name='sugarContent', required=true)
 
-      div(class="form-group mb-3")
-        label(for="brand") Brand
-        input(type="text", class="form-control", name="brand", required)
+    div.form-group
+      label.juiceAttr(for='brand') Juice Brand
+      input#brand(type='text', name='brand', required=true)
 
-      button(type="submit", class="btn btn-success") Save Juice
-      a(class="btn btn-secondary ms-2", href="/juices") Cancel
+    input(type="submit" value="Save Juice")
+
+  script.
+    document.forms['JuiceForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target))
+      }).then((resp) => {
+        if (!resp.ok) {
+          throw new Error("Server returned " + resp.status);
+        }
+        return resp.json();
+      }).then((body) => {
+        alert("Save succeeded");
+      }).catch((error) => {
+        alert("Save failed: " + error);
+      });
+    });

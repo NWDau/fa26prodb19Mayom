@@ -1,0 +1,37 @@
+
+extends layout
+
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No juice instance found
+    a.btn.btn-secondary(href='/juices') Back to Juices
+
+  else
+    - let juiceid = toShow._id
+    - let juiceflavor = toShow.flavor
+    - let juicevolume = toShow.volume
+    - let juicesugar = toShow.sugarContent
+    - let juicebrand = toShow.brand
+
+    div
+      div(class='row')
+        div(class='juiceAttr mr-3') Juice ID is:
+        div #{juiceid}
+
+      div(class='row')
+        div(class='juiceAttr mr-3') Juice Flavor is:
+        div #{juiceflavor}
+
+      div(class='row')
+        div(class='juiceAttr mr-3') Juice Volume is:
+        div #{juicevolume}
+
+      div(class='row')
+        div(class='juiceAttr mr-3') Juice Sugar Content is:
+        div #{juicesugar}
+
+      div(class='row')
+        div(class='juiceAttr mr-3') Juice Brand is:
+        div #{juicebrand}
