@@ -1,3 +1,4 @@
+
 extends layout
 
 block content
@@ -14,6 +15,6 @@ block content
             p Brand: #{item.brand}
 
             div(class="d-flex gap-2")
-              a(class="btn btn-info btn-sm", href=`/juices/${item._id}`) Inspect
-              a(class="btn btn-warning btn-sm", href=`/juices/${item._id}/update`) Update
-              a(class="btn btn-danger btn-sm", href=`/juices/${item._id}/delete`) Delete
+              a(class="btn btn-info btn-sm", href=`/juices/detail?id=${item._id}`) Inspect
+              a(class="btn btn-warning btn-sm", href=`/juices/update?id=${item._id}`) Update
+              a(class="btn btn-danger btn-sm", href=`/juices/delete?id=${item._id}`) Delete

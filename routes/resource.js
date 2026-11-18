@@ -35,6 +35,4 @@ router.post('/juices/:id', juice_controller.juice_update_put);
 
 router.post('/juices/:id/delete', juice_controller.juice_delete);
 
-router.delete('/juices/:id', juice_controller.juice_delete);
-
 module.exports = router;

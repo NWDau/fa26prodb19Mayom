@@ -61,5 +61,6 @@ typings/
 
 MONGO CON='mongodb+srv://s573919_db_user:YBcURk3haRUMjgbl@learnmongo.nekzffg.mongodb.net/'
 
+
 # next.js build output
 .next
