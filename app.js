@@ -25,7 +25,33 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var Juice = require("./models/juice")
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
+var Juice = require("./models/juice");
+
+passport.use(new LocalStrategy(
+  async function(username, password, done) {
+    try {
+      const Account = require('./models/account');
+      const user = await Account.findOne({ username: username });
+
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+
+      return done(null, user);
+
+    } catch (err) {
+      return done(err);
+    }
+  }
+));
 
 async function recreateDB(){
 
@@ -82,20 +108,42 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 app.use(cookieParser());
+
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'some secret',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/juices', juiceRouter);
 app.use('/grid', gridRouter);
 app.use('/pick', pickRouter);
-app.use('/resource', resourceRouter);
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// passport config
+// Use the existing connection
+// The Account model
+var Account = require('./models/account');
+
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 
 // error handler
 app.use(function(err, req, res, next) {
